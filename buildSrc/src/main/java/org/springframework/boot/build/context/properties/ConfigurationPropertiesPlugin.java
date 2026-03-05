@@ -96,7 +96,7 @@ public class ConfigurationPropertiesPlugin implements Plugin<Project> {
 			.getByName(SourceSet.MAIN_SOURCE_SET_NAME);
 		project.getTasks()
 			.named(mainSourceSet.getCompileJavaTaskName(), JavaCompile.class)
-			.configure((compileJava) -> compileJava.getOptions().setIncremental(false));
+			.configure((compileJava) -> compileJava.getOptions().getIncremental().set(false));
 	}
 
 	private void addMetadataArtifact(Project project) {

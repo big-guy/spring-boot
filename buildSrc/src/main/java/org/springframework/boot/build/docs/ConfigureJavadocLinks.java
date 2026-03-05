@@ -66,7 +66,7 @@ public class ConfigureJavadocLinks implements Action<Javadoc> {
 			.map(JavadocLink::uri)
 			.map(URI::toString)
 			.forEach(links::add);
-		options.setLinks(links);
+		options.getLinks().set(links);
 	}
 
 }

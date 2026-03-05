@@ -110,8 +110,8 @@ public class DockerTestPlugin implements Plugin<Project> {
 			task.usesService(buildService);
 			task.setGroup(LifecycleBasePlugin.VERIFICATION_GROUP);
 			task.setDescription("Runs Docker-based tests.");
-			task.setTestClassesDirs(dockerTestSourceSet.getOutput().getClassesDirs());
-			task.setClasspath(dockerTestSourceSet.getRuntimeClasspath());
+			task.getTestClassesDirs().setFrom(dockerTestSourceSet.getOutput().getClassesDirs());
+			task.getClasspath().setFrom(dockerTestSourceSet.getRuntimeClasspath());
 			task.shouldRunAfter(JavaPlugin.TEST_TASK_NAME);
 		});
 	}

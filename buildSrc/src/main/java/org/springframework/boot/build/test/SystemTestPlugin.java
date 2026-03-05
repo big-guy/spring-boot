@@ -83,8 +83,8 @@ public class SystemTestPlugin implements Plugin<Project> {
 		return project.getTasks().register(SYSTEM_TEST_TASK_NAME, Test.class, (task) -> {
 			task.setGroup(LifecycleBasePlugin.VERIFICATION_GROUP);
 			task.setDescription("Runs system tests.");
-			task.setTestClassesDirs(systemTestSourceSet.getOutput().getClassesDirs());
-			task.setClasspath(systemTestSourceSet.getRuntimeClasspath());
+			task.getTestClassesDirs().setFrom(systemTestSourceSet.getOutput().getClassesDirs());
+			task.getClasspath().setFrom(systemTestSourceSet.getRuntimeClasspath());
 			task.shouldRunAfter(JavaPlugin.TEST_TASK_NAME);
 			if (isCi()) {
 				task.getOutputs().upToDateWhen(NEVER);

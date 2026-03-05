@@ -96,7 +96,7 @@ class ConsumableContentContribution extends ContentContribution {
 	private void addPublishedMavenArtifact(MavenPublication mavenPublication, TaskProvider<?> producer) {
 		if ("maven".equals(mavenPublication.getName())) {
 			String classifier = "%s-%s-content".formatted(getName(), getType());
-			mavenPublication.artifact(producer, (mavenArtifact) -> mavenArtifact.setClassifier(classifier));
+			mavenPublication.artifact(producer, (mavenArtifact) -> mavenArtifact.getClassifier().set(classifier));
 		}
 	}
 

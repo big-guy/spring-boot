@@ -79,7 +79,7 @@ sourceSets {
 }
 
 tasks.named("compileJava") {
-	options.compilerArgs -= ['-Werror']
+	options.compilerArgs.set(options.compilerArgs.get() - ['-Werror'])
 }
 
 plugins.withType(EclipsePlugin) {

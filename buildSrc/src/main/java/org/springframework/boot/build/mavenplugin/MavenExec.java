@@ -46,7 +46,7 @@ public abstract class MavenExec extends JavaExec {
 	private final Logger logger = LoggerFactory.getLogger(MavenExec.class);
 
 	public MavenExec() {
-		setClasspath(mavenConfiguration(getProject()));
+		getClasspath().setFrom(mavenConfiguration(getProject()));
 		args("--batch-mode");
 		getMainClass().set("org.apache.maven.cli.MavenCli");
 		getPom().set(getProjectDir().file("pom.xml"));

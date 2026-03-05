@@ -76,8 +76,8 @@ public class IntegrationTestPlugin implements Plugin<Project> {
 		return project.getTasks().register(INT_TEST_TASK_NAME, Test.class, (task) -> {
 			task.setGroup(LifecycleBasePlugin.VERIFICATION_GROUP);
 			task.setDescription("Runs integration tests.");
-			task.setTestClassesDirs(intTestSourceSet.getOutput().getClassesDirs());
-			task.setClasspath(intTestSourceSet.getRuntimeClasspath());
+			task.getTestClassesDirs().setFrom(intTestSourceSet.getOutput().getClassesDirs());
+			task.getClasspath().setFrom(intTestSourceSet.getRuntimeClasspath());
 			task.shouldRunAfter(JavaPlugin.TEST_TASK_NAME);
 		});
 	}

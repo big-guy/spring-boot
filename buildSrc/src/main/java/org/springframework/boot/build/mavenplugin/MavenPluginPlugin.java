@@ -158,7 +158,7 @@ public class MavenPluginPlugin implements Plugin<Project> {
 	}
 
 	private void setPackaging(MavenPublication mavenPublication) {
-		mavenPublication.pom((pom) -> pom.setPackaging("maven-plugin"));
+		mavenPublication.pom((pom) -> pom.getPackaging().set("maven-plugin"));
 	}
 
 	private void addPopulateIntTestMavenRepositoryTask(Project project) {

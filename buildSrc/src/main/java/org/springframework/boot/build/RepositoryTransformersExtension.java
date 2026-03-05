@@ -58,7 +58,7 @@ public class RepositoryTransformersExtension {
 		if (line.contains(REPOSITORIES_MARKER)) {
 			return transform(line, (repository, indent) -> {
 				String name = repository.getName();
-				URI url = repository.getUrl();
+				URI url = repository.getUrl().get();
 				return "%s<ibiblio name=\"%s\" m2compatible=\"true\" root=\"%s\" />".formatted(indent, name, url);
 			});
 		}
@@ -66,7 +66,7 @@ public class RepositoryTransformersExtension {
 			Map<String, MavenCredential> hostCredentials = new LinkedHashMap<>();
 			getSpringRepositories().forEach((repository) -> {
 				if (repository.getName().startsWith("spring-commercial-")) {
-					String host = repository.getUrl().getHost();
+					String host = repository.getUrl().get().getHost();
 					hostCredentials.put(host,
 							new MavenCredential("${env.COMMERCIAL_REPO_USERNAME}", "${env.COMMERCIAL_REPO_PASSWORD"));
 				}

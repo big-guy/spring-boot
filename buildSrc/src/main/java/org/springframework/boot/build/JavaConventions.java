@@ -207,7 +207,7 @@ class JavaConventions {
 	private void configureTestConventions(Project project) {
 		project.getTasks().withType(Test.class, (test) -> {
 			test.useJUnitPlatform();
-			test.setMaxHeapSize("1536M");
+			test.getMaxHeapSize().set("1536M");
 			project.getTasks().withType(Checkstyle.class, test::mustRunAfter);
 			project.getTasks().withType(CheckFormat.class, test::mustRunAfter);
 			configureTestRetries(test);
@@ -263,12 +263,12 @@ class JavaConventions {
 	private void configureJavaConventions(Project project) {
 		project.getTasks().withType(JavaCompile.class, (compile) -> {
 			compile.doFirst((task) -> assertCompatible(compile));
-			compile.getOptions().setEncoding("UTF-8");
+			compile.getOptions().getEncoding().set("UTF-8");
 			compile.getOptions().getRelease().set(RUNTIME_JAVA_VERSION);
-			Set<String> args = new LinkedHashSet<>(compile.getOptions().getCompilerArgs());
+			Set<String> args = new LinkedHashSet<>(compile.getOptions().getCompilerArgs().get());
 			args.addAll(List.of("-parameters", "-Werror", "-Xlint:unchecked", "-Xlint:deprecation", "-Xlint:rawtypes",
 					"-Xlint:varargs"));
-			compile.getOptions().setCompilerArgs(new ArrayList<>(args));
+			compile.getOptions().getCompilerArgs().set(new ArrayList<>(args));
 		});
 	}
 
@@ -292,7 +292,7 @@ class JavaConventions {
 		project.getPlugins().apply(CheckstylePlugin.class);
 		CheckstyleExtension checkstyle = project.getExtensions().getByType(CheckstyleExtension.class);
 		String checkstyleToolVersion = (String) project.findProperty("checkstyleToolVersion");
-		checkstyle.setToolVersion(checkstyleToolVersion);
+		checkstyle.getToolVersion().set(checkstyleToolVersion);
 		checkstyle.getConfigDirectory().set(project.getRootProject().file("config/checkstyle"));
 		String version = SpringJavaFormatPlugin.class.getPackage().getImplementationVersion();
 		DependencySet checkstyleDependencies = project.getConfigurations().getByName("checkstyle").getDependencies();

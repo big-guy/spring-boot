@@ -80,7 +80,7 @@ final class MavenMetadataVersionResolver implements VersionResolver {
 
 	private Set<String> resolveVersions(String groupId, String artifactId, MavenArtifactRepository repository) {
 		Set<String> versions = new HashSet<>();
-		URI url = UriComponentsBuilder.fromUri(repository.getUrl())
+		URI url = UriComponentsBuilder.fromUri(repository.getUrl().get())
 			.pathSegment(groupId.replace('.', '/'), artifactId, "maven-metadata.xml")
 			.build()
 			.toUri();
