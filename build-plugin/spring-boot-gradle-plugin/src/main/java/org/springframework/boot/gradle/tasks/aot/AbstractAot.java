@@ -106,7 +106,7 @@ public abstract class AbstractAot extends JavaExec {
 		args.add(getClassesOutput().getAsFile().get().getAbsolutePath());
 		args.add(getGroupId().get());
 		args.add(getArtifactId().get());
-		args.addAll(super.getArgs());
+		args.addAll(super.getArgs().get());
 		return args;
 	}
 

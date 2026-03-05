@@ -90,7 +90,7 @@ public abstract class ProcessTestAot extends AbstractAot {
 			.map(File::getAbsolutePath)
 			.collect(Collectors.joining(File.pathSeparator)));
 		args.addAll(processorArgs());
-		setArgs(args);
+		getArgs().set(args);
 		super.exec();
 	}
 

@@ -134,7 +134,7 @@ public class SpringBootAotPlugin implements Plugin<Project> {
 				configureAotTask(project, aotSourceSet, task, resourcesOutput);
 				task.getApplicationMainClass()
 					.set(resolveMainClassName.flatMap(ResolveMainClassName::readMainClassName));
-				task.setClasspath(aotClasspath);
+				task.getClasspath().setFrom(aotClasspath);
 			});
 		aotSourceSet.getJava().srcDir(processAot.map(ProcessAot::getSourcesOutput));
 		aotSourceSet.getResources().srcDir(resourcesOutput);
@@ -214,7 +214,7 @@ public class SpringBootAotPlugin implements Plugin<Project> {
 		TaskProvider<ProcessTestAot> processTestAot = project.getTasks()
 			.register(PROCESS_TEST_AOT_TASK_NAME, ProcessTestAot.class, (task) -> {
 				configureAotTask(project, aotTestSourceSet, task, resourcesOutput);
-				task.setClasspath(aotClasspath);
+				task.getClasspath().setFrom(aotClasspath);
 				task.setClasspathRoots(testSourceSet.getOutput());
 			});
 		aotTestSourceSet.getJava().srcDir(processTestAot.map(ProcessTestAot::getSourcesOutput));

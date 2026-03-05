@@ -87,7 +87,7 @@ final class ApplicationPluginAction implements PluginApplicationAction {
 		project.getConfigurations().all((configuration) -> {
 			if ("bootArchives".equals(configuration.getName())) {
 				distribution.getContents().with(artifactFilesToLibCopySpec(project, configuration));
-				createStartScripts.setClasspath(configuration.getArtifacts().getFiles());
+				createStartScripts.getClasspath().setFrom(configuration.getArtifacts().getFiles());
 			}
 		});
 		createStartScripts.getConventionMapping()

@@ -249,16 +249,16 @@ final class JavaPluginAction implements PluginApplicationAction {
 	}
 
 	private void configureUtf8Encoding(JavaCompile compile) {
-		if (compile.getOptions().getEncoding() == null) {
-			compile.getOptions().setEncoding("UTF-8");
+		if (!compile.getOptions().getEncoding().isPresent()) {
+			compile.getOptions().getEncoding().set("UTF-8");
 		}
 	}
 
 	private void configureParametersCompilerArg(Project project) {
 		project.getTasks().withType(JavaCompile.class).configureEach((compile) -> {
-			List<String> compilerArgs = compile.getOptions().getCompilerArgs();
+			List<String> compilerArgs = compile.getOptions().getCompilerArgs().get();
 			if (!compilerArgs.contains(PARAMETERS_COMPILER_ARG)) {
-				compilerArgs.add(PARAMETERS_COMPILER_ARG);
+				compile.getOptions().getCompilerArgs().add(PARAMETERS_COMPILER_ARG);
 			}
 		});
 	}

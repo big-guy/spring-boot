@@ -121,7 +121,7 @@ class BootArchiveSupport {
 			@Nullable LayerResolver layerResolver, @Nullable String jarmodeToolsLocation) {
 		File output = jar.getArchiveFile().get().getAsFile();
 		Manifest manifest = jar.getManifest();
-		boolean preserveFileTimestamps = jar.isPreserveFileTimestamps();
+		boolean preserveFileTimestamps = jar.getPreserveFileTimestamps().get();
 		Integer dirPermissions = getUnixNumericDirPermissions(jar);
 		Integer filePermissions = getUnixNumericFilePermissions(jar);
 		boolean includeDefaultLoader = isUsingDefaultLoader(jar);
@@ -129,7 +129,7 @@ class BootArchiveSupport {
 		Spec<FileTreeElement> exclusions = this.exclusions.getAsExcludeSpec();
 		Spec<FileCopyDetails> librarySpec = this.librarySpec;
 		Function<FileCopyDetails, ZipCompression> compressionResolver = this.compressionResolver;
-		String encoding = jar.getMetadataCharset();
+		String encoding = jar.getMetadataCharset().get();
 		CopyAction action = new BootZipCopyAction(output, manifest, preserveFileTimestamps, dirPermissions,
 				filePermissions, includeDefaultLoader, jarmodeToolsLocation, requiresUnpack, exclusions, librarySpec,
 				compressionResolver, encoding, resolvedDependencies, layerResolver);
