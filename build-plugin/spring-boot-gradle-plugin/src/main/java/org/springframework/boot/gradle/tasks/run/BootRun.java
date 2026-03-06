@@ -59,7 +59,8 @@ public abstract class BootRun extends JavaExec {
 	public void sourceResources(SourceSet sourceSet) {
 		File resourcesDir = sourceSet.getOutput().getResourcesDir();
 		Set<File> srcDirs = sourceSet.getResources().getSrcDirs();
-		getClasspath().setFrom(getProject().files(srcDirs, getClasspath()).filter((file) -> !file.equals(resourcesDir)));
+		getClasspath()
+			.setFrom(getProject().files(srcDirs, getClasspath()).filter((file) -> !file.equals(resourcesDir)));
 	}
 
 	@Override

@@ -333,7 +333,7 @@ abstract class AbstractBootArchiveTests<T extends Jar & BootArchive> {
 	@Test
 	void fileTimestampPreservationCanBeDisabled() throws IOException {
 		this.task.getMainClass().set("com.example.Main");
-		this.task.setPreserveFileTimestamps(false);
+		this.task.getPreserveFileTimestamps().set(false);
 		executeTask();
 		assertThat(this.task.getArchiveFile().get().getAsFile()).exists();
 		long expectedTime = DefaultTimeZoneOffset.INSTANCE.removeFrom(BootZipCopyAction.CONSTANT_TIME_FOR_ZIP_ENTRIES);
@@ -378,8 +378,8 @@ abstract class AbstractBootArchiveTests<T extends Jar & BootArchive> {
 	void archiveReproducibilityCanBeDisabled() throws IOException {
 		this.task.getMainClass().set("com.example.Main");
 		this.task.from(newFiles("files/b/bravo.txt", "files/a/alpha.txt", "files/c/charlie.txt"));
-		this.task.setPreserveFileTimestamps(true);
-		this.task.setReproducibleFileOrder(false);
+		this.task.getPreserveFileTimestamps().set(true);
+		this.task.getReproducibleFileOrder().set(false);
 		executeTask();
 		assertThat(this.task.getArchiveFile().get().getAsFile()).exists();
 		try (JarFile jarFile = new JarFile(this.task.getArchiveFile().get().getAsFile())) {
@@ -409,7 +409,7 @@ abstract class AbstractBootArchiveTests<T extends Jar & BootArchive> {
 	@Test
 	void allEntriesUseUnixPlatformAndUtf8NameEncoding() throws IOException {
 		this.task.getMainClass().set("com.example.Main");
-		this.task.setMetadataCharset("UTF-8");
+		this.task.getMetadataCharset().set("UTF-8");
 		File classpathDirectory = new File(this.temp, "classes");
 		File resource = new File(classpathDirectory, "some-resource.xml");
 		resource.getParentFile().mkdirs();
